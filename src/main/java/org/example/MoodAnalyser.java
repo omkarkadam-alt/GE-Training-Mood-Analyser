@@ -10,26 +10,36 @@ public class MoodAnalyser {
         this.message = message;
     }
 
-    public String analyseMood(String message){
-
-        String mood;
+    public String analyseMood(String message) throws MoodAnalysisException{
         try {
-            mood = (message.toLowerCase().contains("sad")) ? "SAD" : "HAPPY";
+            if(message.length() == 0)
+            {
+                throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.EMPTY_MESSAGE, "Entered an empty message, please entry a valid message.");
+            }
+
+            String mood = (message.toLowerCase().contains("sad")) ? "SAD" : "HAPPY";
             return mood;
 
         } catch (NullPointerException e) {
-            return "HAPPY";
+            throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NULL_MESSAGE, "Entered a null message, please entry a valid message.");
         }
     }
 
-    public String analyseMood(){
-        String mood = (this.message.toLowerCase().contains("sad"))?"SAD":"HAPPY";
-        return mood;
+    public String analyseMood() throws MoodAnalysisException{
+        try{
+            if(this.message.length() == 0)
+            {
+                throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.EMPTY_MESSAGE, "Entered an empty message, please entry a valid message.");
+            }
+
+            String mood = (this.message.toLowerCase().contains("sad"))?"SAD":"HAPPY";
+            return mood;
+        } catch (NullPointerException e){
+            throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NULL_MESSAGE, "Entered an null message, please enter valid message.");
+        }
     }
 
     public static void main(String[] args) {
         System.out.println("Mood Analyzer");
     }
-
-
 }
