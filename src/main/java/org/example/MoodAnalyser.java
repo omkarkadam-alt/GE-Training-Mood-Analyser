@@ -10,10 +10,16 @@ public class MoodAnalyser {
         this.message = message;
     }
 
-    public String analyseMood(String message) throws IllegalArgumentException{
+    public String analyseMood(String message){
 
-        String mood = (message.toLowerCase().contains("sad"))?"SAD":"HAPPY";
-        return mood;
+        String mood;
+        try {
+            mood = (message.toLowerCase().contains("sad")) ? "SAD" : "HAPPY";
+            return mood;
+
+        } catch (NullPointerException e) {
+            return "HAPPY";
+        }
     }
 
     public String analyseMood(){
